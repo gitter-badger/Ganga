@@ -14,4 +14,12 @@
 - (void)downloadSongByID:(NSString *)songID
                  success:(void (^)(NSDictionary *songInfo))success
                  failure:(void (^)(NSError *error))failure;
+
+- (void)downloadAlbumByID:(NSString *)albumID
+                  success:(void (^)(NSDictionary *songInfo))success
+                  failure:(void (^)(NSError *error))failure;
+
+- (void)downloadPlaylistByID:(NSString *)playlistID
+                     success:(void (^)(NSDictionary *songInfo))success
+                     failure:(void (^)(NSError *error))failure;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "NetEaseCloudMusicAPI.h"
+#import "GANDownloadManager.h"
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate>
 
@@ -28,30 +28,17 @@
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
 }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
+
 }
 
 - (void)handleURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
 {
-    NSString *url = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSRange range = [url rangeOfString:@"id="];
-    NSString *songID = [url substringFromIndex:(range.location + range.length)];
+    NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    url = [url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    [[NetEaseCloudMusicAPI sharedClient] downloadSongByID:songID
-                                                  success:^(NSDictionary *songInfo)
-    {
-        NSUserNotification *notification = [[NSUserNotification alloc] init];
-        notification.title = songInfo[@"name"];
-        notification.subtitle = songInfo[@"album"];
-        notification.deliveryDate = [NSDate date];
-        
-        [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
-    }
-                                                  failure:^(NSError *error)
-    {
-        
-    }];
+    [[GANDownloadManager sharedManager] downloadMusicFromURL:url];
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification

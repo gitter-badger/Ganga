@@ -36,6 +36,8 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
     if (self) {
         NSURL *baseURL = [NSURL URLWithString:kNetEaseCloudMusicBaseURL];
         self.sessionManager = [AFHTTPSessionManager manager];
+        self.sessionManager.session.configuration.HTTPMaximumConnectionsPerHost = 3;
+        
         [self initRequestOperationManagerWithBaseURL:baseURL];
     }
     
@@ -52,50 +54,6 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
     NSMutableSet *acceptabeContentTypes = [self.requestManager.responseSerializer.acceptableContentTypes mutableCopy];
     [acceptabeContentTypes addObject:@"text/plain"];
     [self.requestManager.responseSerializer setAcceptableContentTypes:acceptabeContentTypes];
-}
-
-- (void)searchArtistByName:(NSString *)name
-{
-    NSDictionary *params = @{
-                             @"s": name,
-                             @"type": @(100),
-                             @"offset": @(0),
-                             @"sub": @"false",
-                             @"limit": @(10)
-                             };
-    
-    [self.requestManager POST:@"/api/search/get"
-                  parameters:params
-                     success:^(AFHTTPRequestOperation *operation, id responseObject)
-    {
-        NSLog(@"%@", responseObject);
-    }
-                     failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-        NSLog(@"%@", error);
-    }];
-}
-
-- (void)searchSongByName:(NSString *)name
-{
-    NSDictionary *params = @{
-                             @"s": name,
-                             @"type": @(1),
-                             @"offset": @(0),
-                             @"sub": @"false",
-                             @"limit": @(10)
-                             };
-    
-    [self.requestManager POST:@"/api/search/get"
-                   parameters:params
-                      success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         NSLog(@"%@", responseObject);
-     }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"%@", error);
-     }];
 }
 
 - (void)getSongDetailByID:(NSString *)songID
@@ -128,48 +86,177 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
     }];
 }
 
+- (void)getAlbumDetailByID:(NSString *)albumID
+                   success:(void (^)(NSDictionary *songInfo))success
+                   failure:(void (^)(NSError *error))failure
+{
+    NSString *path = [NSString stringWithFormat:@"/api/album/%@/", albumID];
+    
+    [self.requestManager GET:path
+                  parameters:nil
+                     success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSDictionary *data = (NSDictionary *)responseObject[@"album"];
+         NSArray *songs = data[@"songs"];
+         
+         for (NSDictionary *song in songs) {
+             NSDictionary *album = song[@"album"];
+             NSDictionary *artist = [song[@"artists"] firstObject];
+             NSString *albumName = album[@"name"];
+             NSString *songName = song[@"name"];
+             NSString *artistName = artist[@"name"];
+             NSString *mp3URL = song[@"mp3Url"];
+             
+             NSDictionary *songInfo = @{@"name": songName, @"artist": artistName, @"album": albumName, @"url": mp3URL};
+             
+             if (success) {
+                 success(songInfo);
+             }
+         }
+     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+     }];
+}
+
+- (void)getPlaylistDetailByID:(NSString *)playlistID
+                      success:(void (^)(NSDictionary *songInfo))success
+                      failure:(void (^)(NSError *error))failure
+{
+    NSString *path = [NSString stringWithFormat:@"/api/playlist/detail?id=%@", playlistID];
+    
+    [self.requestManager GET:path
+                  parameters:nil
+                     success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSDictionary *data = (NSDictionary *)responseObject[@"result"];
+         NSArray *songs = data[@"tracks"];
+         
+         for (NSDictionary *song in songs) {
+             NSDictionary *album = song[@"album"];
+             NSDictionary *artist = [song[@"artists"] firstObject];
+             NSString *albumName = album[@"name"];
+             NSString *songName = song[@"name"];
+             NSString *artistName = artist[@"name"];
+             NSString *mp3URL = song[@"mp3Url"];
+             
+             NSDictionary *songInfo = @{@"name": songName, @"artist": artistName, @"album": albumName, @"url": mp3URL};
+             
+             if (success) {
+                 success(songInfo);
+             }
+         }
+     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+     }];
+}
+
 - (void)downloadSongByID:(NSString *)songID
                  success:(void (^)(NSDictionary *songInfo))success
                  failure:(void (^)(NSError *error))failure
 {
+    __weak typeof(self) weakSelf = self;
+    
     [self getSongDetailByID:songID
                     success:^(NSDictionary *songInfo)
     {
-        NSString *artist = songInfo[@"artist"];
-        NSString *album = songInfo[@"album"];
-        NSString *name = songInfo[@"name"];
-        NSArray *directories = NSSearchPathForDirectoriesInDomains(NSMusicDirectory, NSUserDomainMask, YES);
-        NSString *musicPath = [NSString stringWithFormat:@"%@", directories.lastObject];
-        NSString *destinationFolder = [NSString stringWithFormat:@"%@/iPod/%@/%@", musicPath, artist, album];
-        NSString *destination = [NSString stringWithFormat:@"%@/%@.mp3", destinationFolder, name];
-     
-        BOOL isDir = NO;
+        [weakSelf downloadSongBySongInfo:songInfo success:^(void) {
+            if (success) {
+                success(songInfo);
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+                    failure:nil];
+}
+
+- (void)downloadSongBySongInfo:(NSDictionary *)songInfo
+                       success:(void (^)(void))success
+                       failure:(void (^)(NSError *error))failure
+{
+    NSString *artist = songInfo[@"artist"];
+    NSString *album = songInfo[@"album"];
+    NSString *name = songInfo[@"name"];
+    NSArray *directories = NSSearchPathForDirectoriesInDomains(NSMusicDirectory, NSUserDomainMask, YES);
+    NSString *musicPath = [NSString stringWithFormat:@"%@", directories.lastObject];
+    NSString *destinationFolder = [NSString stringWithFormat:@"%@/iPod/%@/%@", musicPath, artist, album];
+    NSString *destination = [NSString stringWithFormat:@"%@/%@.mp3", destinationFolder, name];
+    
+    BOOL isDir = NO;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:destination isDirectory:&isDir] && !isDir) {
+        return;
+    }
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationFolder isDirectory:&isDir] || !isDir) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:destinationFolder
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
+    }
+    
+    [self downLoadSongByURL:songInfo[@"url"]
+                destination:destination
+                    success:^
+     {
+         if (success) {
+             success();
+         }
+     }
+                    failure:^(NSError *error)
+     {
+         
+     }];
+}
+
+- (void)downloadAlbumByID:(NSString *)albumID
+                  success:(void (^)(NSDictionary *songInfo))success
+                  failure:(void (^)(NSError *error))failure
+{
+    __weak typeof(self) weakSelf = self;
+    
+    [self getAlbumDetailByID:albumID success:^(NSDictionary *songInfo) {
+        [weakSelf downloadSongBySongInfo:songInfo success:^{
+            if (success) {
+                success(songInfo);
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    } failure:^(NSError *error) {
         
-        if ([[NSFileManager defaultManager] fileExistsAtPath:destination isDirectory:&isDir] && !isDir) {
-            return;
-        }
-        
-        if (![[NSFileManager defaultManager] fileExistsAtPath:destinationFolder isDirectory:&isDir] || !isDir) {
-            [[NSFileManager defaultManager] createDirectoryAtPath:destinationFolder
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil
-                                                            error:nil];
-        }
-        
-        [self downLoadSongByURL:songInfo[@"url"]
-                    destination:destination
-                        success:^
+    }];
+}
+
+- (void)downloadPlaylistByID:(NSString *)playlistID
+                     success:(void (^)(NSDictionary *songInfo))success
+                     failure:(void (^)(NSError *error))failure
+{
+    __weak typeof(self) weakSelf = self;
+    
+    [self getPlaylistDetailByID:playlistID
+                        success:^(NSDictionary *songInfo)
+    {
+        [weakSelf downloadSongBySongInfo:songInfo
+                                 success:^
         {
             if (success) {
                 success(songInfo);
             }
         }
-                        failure:^(NSError *error)
+                                 failure:^(NSError *error)
         {
             
         }];
     }
-                    failure:nil];
+                        failure:^(NSError *error)
+    {
+        
+    }];
 }
 
 - (void)downLoadSongByURL:(NSString *)url
@@ -191,7 +278,6 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
                                           if (success) {
                                               success();
                                           }
-                                          
                                       }];
     
     [task resume];
