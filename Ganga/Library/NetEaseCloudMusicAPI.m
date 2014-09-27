@@ -36,7 +36,7 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
     if (self) {
         NSURL *baseURL = [NSURL URLWithString:kNetEaseCloudMusicBaseURL];
         self.sessionManager = [AFHTTPSessionManager manager];
-        self.sessionManager.session.configuration.HTTPMaximumConnectionsPerHost = 3;
+        self.sessionManager.session.configuration.HTTPMaximumConnectionsPerHost = 1;
         
         [self initRequestOperationManagerWithBaseURL:baseURL];
     }
