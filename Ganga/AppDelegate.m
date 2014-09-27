@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "NetEaseCloudMusicAPI.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <NSUserNotificationCenterDelegate>
 
 @end
 
@@ -25,7 +25,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-
+    [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -37,6 +37,25 @@
     NSString *url = [[[event paramDescriptorForKeyword:keyDirectObject] stringValue] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSRange range = [url rangeOfString:@"id="];
     NSString *songID = [url substringFromIndex:(range.location + range.length)];
-    [[NetEaseCloudMusicAPI sharedClient] downloadSongByID:songID];
+    
+    [[NetEaseCloudMusicAPI sharedClient] downloadSongByID:songID
+                                                  success:^(NSDictionary *songInfo)
+    {
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = songInfo[@"name"];
+        notification.subtitle = songInfo[@"album"];
+        notification.deliveryDate = [NSDate date];
+        
+        [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
+    }
+                                                  failure:^(NSError *error)
+    {
+        
+    }];
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    return YES;
 }
 @end

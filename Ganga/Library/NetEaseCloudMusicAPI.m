@@ -129,6 +129,8 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
 }
 
 - (void)downloadSongByID:(NSString *)songID
+                 success:(void (^)(NSDictionary *songInfo))success
+                 failure:(void (^)(NSError *error))failure
 {
     [self getSongDetailByID:songID
                     success:^(NSDictionary *songInfo)
@@ -154,12 +156,26 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
                                                             error:nil];
         }
         
-        [self downLoadSongByURL:songInfo[@"url"] destination:destination];
+        [self downLoadSongByURL:songInfo[@"url"]
+                    destination:destination
+                        success:^
+        {
+            if (success) {
+                success(songInfo);
+            }
+        }
+                        failure:^(NSError *error)
+        {
+            
+        }];
     }
                     failure:nil];
 }
 
-- (void)downLoadSongByURL:(NSString *)url destination:(NSString *)destination
+- (void)downLoadSongByURL:(NSString *)url
+              destination:(NSString *)destination
+                  success:(void (^)(void))success
+                  failure:(void (^)(NSError *error))failure
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
@@ -172,6 +188,9 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
                                       }
                                                                 completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error)
                                       {
+                                          if (success) {
+                                              success();
+                                          }
                                           
                                       }];
     

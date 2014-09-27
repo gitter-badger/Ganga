@@ -11,5 +11,7 @@
 @interface NetEaseCloudMusicAPI : NSObject
 + (instancetype)sharedClient;
 
-- (void)downloadSongByID:(NSString *)songID;
+- (void)downloadSongByID:(NSString *)songID
+                 success:(void (^)(NSDictionary *songInfo))success
+                 failure:(void (^)(NSError *error))failure;
 @end
