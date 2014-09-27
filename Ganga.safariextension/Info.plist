@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>6133Studio</string>
+	<key>Builder Version</key>
+	<string>10600.1.22</string>
+	<key>CFBundleDisplayName</key>
+	<string>Ganga</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.im61.ganga</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Global Page</key>
+		<string>global.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>open-ganga</string>
+				<key>Identifier</key>
+				<string>Ganga</string>
+				<key>Image</key>
+				<string>Ganga@2x.png</string>
+				<key>Label</key>
+				<string>Ganga</string>
+				<key>Palette Label</key>
+				<string>Ganga</string>
+				<key>Tool Tip</key>
+				<string>Ganga</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict/>
+	</dict>
+	<key>DeveloperIdentifier</key>
+	<string>5WQQFL4Z5B</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Allowed Domains</key>
+			<array>
+				<string>http://music.163.com</string>
+			</array>
+			<key>Level</key>
+			<string>Some</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

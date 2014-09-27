@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		68092D6B19D6868D007E5742 /* NetEaseCloudMusicAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68092D6A19D6868D007E5742 /* NetEaseCloudMusicAPI.m */; };
 		6873BE2619D680D500709B7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873BE2519D680D500709B7E /* main.m */; };
 		6873BE2919D680D500709B7E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873BE2819D680D500709B7E /* ViewController.m */; };
 		6873BE2C19D680D500709B7E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873BE2B19D680D500709B7E /* AppDelegate.m */; };
 		6873BE2E19D680D500709B7E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6873BE2D19D680D500709B7E /* Images.xcassets */; };
 		6873BE3119D680D500709B7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6873BE2F19D680D500709B7E /* Main.storyboard */; };
 		6873BE3D19D680D500709B7E /* GangaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873BE3C19D680D500709B7E /* GangaTests.m */; };
+		84A851E0E7EA4DF0A0911AD2 /* libPods-Ganga.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A28A674769D7410C902113B0 /* libPods-Ganga.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		68092D6919D6868D007E5742 /* NetEaseCloudMusicAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetEaseCloudMusicAPI.h; sourceTree = "<group>"; };
+		68092D6A19D6868D007E5742 /* NetEaseCloudMusicAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetEaseCloudMusicAPI.m; sourceTree = "<group>"; };
 		6873BE2019D680D500709B7E /* Ganga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ganga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6873BE2419D680D500709B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6873BE2519D680D500709B7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -38,6 +42,8 @@
 		6873BE3619D680D500709B7E /* GangaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GangaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6873BE3B19D680D500709B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6873BE3C19D680D500709B7E /* GangaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GangaTests.m; sourceTree = "<group>"; };
+		872A31E42785476B955F75A7 /* Pods-Ganga.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ganga.xcconfig"; path = "Pods/Pods-Ganga.xcconfig"; sourceTree = "<group>"; };
+		A28A674769D7410C902113B0 /* libPods-Ganga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ganga.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A851E0E7EA4DF0A0911AD2 /* libPods-Ganga.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +71,8 @@
 				6873BE2219D680D500709B7E /* Ganga */,
 				6873BE3919D680D500709B7E /* GangaTests */,
 				6873BE2119D680D500709B7E /* Products */,
+				872A31E42785476B955F75A7 /* Pods-Ganga.xcconfig */,
+				8407DE9DEA9549D3AC12BFFC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +88,7 @@
 		6873BE2219D680D500709B7E /* Ganga */ = {
 			isa = PBXGroup;
 			children = (
+				6873BE4619D6852900709B7E /* Library */,
 				6873BE2719D680D500709B7E /* ViewController.h */,
 				6873BE2819D680D500709B7E /* ViewController.m */,
 				6873BE2A19D680D500709B7E /* AppDelegate.h */,
@@ -116,6 +126,31 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6873BE4619D6852900709B7E /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				6873BE4719D6853200709B7E /* API */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		6873BE4719D6853200709B7E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				68092D6919D6868D007E5742 /* NetEaseCloudMusicAPI.h */,
+				68092D6A19D6868D007E5742 /* NetEaseCloudMusicAPI.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		8407DE9DEA9549D3AC12BFFC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A28A674769D7410C902113B0 /* libPods-Ganga.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,9 +158,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6873BE4019D680D500709B7E /* Build configuration list for PBXNativeTarget "Ganga" */;
 			buildPhases = (
+				EA2CFC22283046A9B8CB144B /* Check Pods Manifest.lock */,
 				6873BE1C19D680D500709B7E /* Sources */,
 				6873BE1D19D680D500709B7E /* Frameworks */,
 				6873BE1E19D680D500709B7E /* Resources */,
+				8A867DAA27A14FD8B753CE22 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -210,11 +247,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8A867DAA27A14FD8B753CE22 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-Ganga-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA2CFC22283046A9B8CB144B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6873BE1C19D680D500709B7E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68092D6B19D6868D007E5742 /* NetEaseCloudMusicAPI.m in Sources */,
 				6873BE2919D680D500709B7E /* ViewController.m in Sources */,
 				6873BE2619D680D500709B7E /* main.m in Sources */,
 				6873BE2C19D680D500709B7E /* AppDelegate.m in Sources */,
@@ -329,6 +400,7 @@
 		};
 		6873BE4119D680D500709B7E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 872A31E42785476B955F75A7 /* Pods-Ganga.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -340,6 +412,7 @@
 		};
 		6873BE4219D680D500709B7E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 872A31E42785476B955F75A7 /* Pods-Ganga.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -404,6 +477,7 @@
 				6873BE4219D680D500709B7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6873BE4319D680D500709B7E /* Build configuration list for PBXNativeTarget "GangaTests" */ = {
 			isa = XCConfigurationList;
@@ -412,6 +486,7 @@
 				6873BE4519D680D500709B7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

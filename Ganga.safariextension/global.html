@@ -1,0 +1,17 @@
+<html>
+<head>
+<script>
+// Set up the Listener
+safari.application.addEventListener("command", performCommand, false);
+
+// Function to perform when event is received
+function performCommand(event) {
+    // Make sure event comes from the button
+    if (event.command == "open-ganga") {
+        var currentUrl = safari.application.activeBrowserWindow.activeTab.url;
+        var targetUrl = "ganga://" + encodeURIComponent(currentUrl);
+        safari.application.activeBrowserWindow.activeTab.url = targetUrl;
+    }}
+</script>
+</head>
+</html>
