@@ -183,7 +183,7 @@ static NSString * const kNetEaseCloudMusicBaseURL = @"http://music.163.com";
     NSString *name = songInfo[@"name"];
     NSArray *directories = NSSearchPathForDirectoriesInDomains(NSMusicDirectory, NSUserDomainMask, YES);
     NSString *musicPath = [NSString stringWithFormat:@"%@", directories.lastObject];
-    NSString *destinationFolder = [NSString stringWithFormat:@"%@/iPod/%@/%@", musicPath, artist, album];
+    NSString *destinationFolder = [NSString stringWithFormat:@"%@/Music/%@/%@", musicPath, artist, album];
     NSString *destination = [NSString stringWithFormat:@"%@/%@.mp3", destinationFolder, name];
     
     BOOL isDir = NO;

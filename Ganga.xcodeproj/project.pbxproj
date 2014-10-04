@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		68092D6B19D6868D007E5742 /* NetEaseCloudMusicAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 68092D6A19D6868D007E5742 /* NetEaseCloudMusicAPI.m */; };
 		6873BE2619D680D500709B7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873BE2519D680D500709B7E /* main.m */; };
-		6873BE2919D680D500709B7E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873BE2819D680D500709B7E /* ViewController.m */; };
 		6873BE2C19D680D500709B7E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873BE2B19D680D500709B7E /* AppDelegate.m */; };
 		6873BE2E19D680D500709B7E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6873BE2D19D680D500709B7E /* Images.xcassets */; };
 		6873BE3119D680D500709B7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6873BE2F19D680D500709B7E /* Main.storyboard */; };
@@ -34,8 +33,6 @@
 		6873BE2019D680D500709B7E /* Ganga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ganga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6873BE2419D680D500709B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6873BE2519D680D500709B7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6873BE2719D680D500709B7E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6873BE2819D680D500709B7E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6873BE2A19D680D500709B7E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6873BE2B19D680D500709B7E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6873BE2D19D680D500709B7E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -92,15 +89,13 @@
 			isa = PBXGroup;
 			children = (
 				6873BE4619D6852900709B7E /* Library */,
-				6873BE2719D680D500709B7E /* ViewController.h */,
-				6873BE2819D680D500709B7E /* ViewController.m */,
 				6873BE2A19D680D500709B7E /* AppDelegate.h */,
 				6873BE2B19D680D500709B7E /* AppDelegate.m */,
+				68DF93B319D6E20B00718B79 /* GANDownloadManager.h */,
+				68DF93B419D6E20B00718B79 /* GANDownloadManager.m */,
 				6873BE2D19D680D500709B7E /* Images.xcassets */,
 				6873BE2F19D680D500709B7E /* Main.storyboard */,
 				6873BE2319D680D500709B7E /* Supporting Files */,
-				68DF93B319D6E20B00718B79 /* GANDownloadManager.h */,
-				68DF93B419D6E20B00718B79 /* GANDownloadManager.m */,
 			);
 			path = Ganga;
 			sourceTree = "<group>";
@@ -291,7 +286,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				68092D6B19D6868D007E5742 /* NetEaseCloudMusicAPI.m in Sources */,
-				6873BE2919D680D500709B7E /* ViewController.m in Sources */,
 				6873BE2619D680D500709B7E /* main.m in Sources */,
 				68DF93B519D6E20B00718B79 /* GANDownloadManager.m in Sources */,
 				6873BE2C19D680D500709B7E /* AppDelegate.m in Sources */,
